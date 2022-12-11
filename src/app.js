@@ -9,6 +9,24 @@ const {
   firstCharacters,
 } = require('./lib/strings');
 const { add, subtract, multiply, divide, remainder } = require('./lib/numbers');
+const { negate, truthiness, isOdd, startsWith } = require('./lib/booleans');
+const {
+  getNthElement,
+  arrayToCSVString,
+  csvStringToArray,
+  addToArray,
+  addToArray2,
+  removeNthElement,
+  numbersToStrings,
+  uppercaseWordsInArray,
+  reverseWordsInArray,
+  onlyEven,
+  removeNthElement2,
+  elementsStartingWithAVowel,
+  removeSpaces,
+  sumNumbers,
+  sortByLastLetter,
+} = require('./lib/arrays');
 
 const app = express();
 app.use(express.json());
@@ -99,6 +117,51 @@ app.post('/numbers/remainder', (req, res) => {
   } else {
     res.status(200).json({ result: remainder(a, b) });
   }
+});
+
+app.post('/booleans/negate', (req, res) => {
+  res.status(200).json({ result: negate(req.body.value) });
+});
+
+app.post('/booleans/truthiness', (req, res) => {
+  const a = req.body.value;
+  if (a === '' || a === 0 || a === null) {
+    res.status(200).json({ result: truthiness(a) });
+  } else {
+    res.status(200).json({ result: truthiness(a) });
+  }
+});
+
+app.get('/booleans/is-odd/:a', (req, res) => {
+  const { a } = req.params;
+  if (a.match(/[A-Za-z]/)) {
+    res.status(400).json({ error: 'Parameter must be a number.' });
+  } else {
+    res.status(200).json({ result: isOdd(a) });
+  }
+});
+
+app.get('/booleans/:a/starts-with/:b', (req, res) => {
+  const { a, b } = req.params;
+  if (b.length > 1) {
+    res.status(400).json({ error: 'Parameter "character" must be a single character.' });
+  } else {
+    res.status(200).json({ result: startsWith(b, a) });
+  }
+});
+
+app.post('/arrays/element-at-index/:a', (req, res) => {
+  const { a } = req.params;
+  res.status(200).json({ result: getNthElement(a, req.body.array) });
+});
+
+app.post('/arrays/to-string', (req, res) => {
+  res.status(200).json({ result: arrayToCSVString(req.body.array) });
+});
+
+app.post('/arrays/append', (req, res) => {
+  console.log(req.body.array);
+  res.status(200).json({ result: addToArray(req.body.value, req.body.array) });
 });
 
 module.exports = app;
