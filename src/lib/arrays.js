@@ -1,9 +1,8 @@
 const getNthElement = (index, array) => {
-  if (index < array.length){
+  if (index < array.length) {
     return array[index];
-  } else {
-    return array[index - array.length];
   }
+  return array[index - array.length];
 };
 
 const arrayToCSVString = array => {
@@ -11,7 +10,7 @@ const arrayToCSVString = array => {
 };
 
 const csvStringToArray = string => {
-  return string.split(",");
+  return string.split(',');
 };
 
 const addToArray = (element, array) => {
@@ -27,26 +26,29 @@ const removeNthElement = (index, array) => {
 };
 
 const numbersToStrings = numbers => {
-  return numbers.map((num) => { 
+  return numbers.map(num => {
     return num.toString();
   });
 };
 
 const uppercaseWordsInArray = strings => {
-  return strings.map((string) => {
+  return strings.map(string => {
     return string.toUpperCase();
   });
 };
 
 const reverseWordsInArray = strings => {
-  return strings.map((string) => {
-    return string.split("").reverse().join("");
+  return strings.map(string => {
+    return string
+      .split('')
+      .reverse()
+      .join('');
   });
 };
 
 const onlyEven = numbers => {
-  return numbers.filter((num) => {
-    return num % 2 === 0
+  return numbers.filter(num => {
+    return num % 2 === 0;
   });
 };
 
@@ -55,13 +57,13 @@ const removeNthElement2 = (index, array) => {
 };
 
 const elementsStartingWithAVowel = strings => {
-  return strings.filter((string) => {
+  return strings.filter(string => {
     return string.match(/^[aeiou]/i);
   });
 };
 
 const removeSpaces = string => {
-  return string.split(" ").join("");
+  return string.split(' ').join('');
 };
 
 const sumNumbers = numbers => {
@@ -72,7 +74,7 @@ const sumNumbers = numbers => {
 
 const sortByLastLetter = strings => {
   return strings.sort((a, b) => {
-    return a.charCodeAt(a.length -1) - b.charCodeAt(b.length -1);
+    return a.charCodeAt(a.length - 1) - b.charCodeAt(b.length - 1);
   });
 };
 
@@ -91,5 +93,5 @@ module.exports = {
   elementsStartingWithAVowel,
   removeSpaces,
   sumNumbers,
-  sortByLastLetter
+  sortByLastLetter,
 };

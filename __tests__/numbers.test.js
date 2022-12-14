@@ -110,7 +110,7 @@ describe('/numbers', () => {
         });
     });
 
-    xit('errors if the parameters are not numbers', done => {
+    it('errors if the parameters are not numbers', done => {
       request(app)
         .post('/numbers/multiply')
         .send({ a: 'fish', b: 'chips' })
@@ -178,7 +178,7 @@ describe('/numbers', () => {
         });
     });
 
-    xit('errors if the parameters are not numbers', done => {
+    it('errors if the parameters are not numbers', done => {
       request(app)
         .post('/numbers/divide')
         .send({ a: 'fish', b: 'chips' })
@@ -224,7 +224,7 @@ describe('/numbers', () => {
         });
     });
 
-    xit('errors if dividing by 0', done => {
+    it('errors if dividing by 0', done => {
       request(app)
         .post('/numbers/remainder')
         .send({ a: 10, b: 0 })
@@ -246,7 +246,7 @@ describe('/numbers', () => {
         });
     });
 
-    xit('errors if the parameters are not numbers', done => {
+    it('errors if the parameters are not numbers', done => {
       request(app)
         .post('/numbers/remainder')
         .send({ a: 'fish', b: 'chips' })

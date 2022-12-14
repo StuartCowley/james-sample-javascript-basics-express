@@ -13,19 +13,9 @@ const { negate, truthiness, isOdd, startsWith } = require('./lib/booleans');
 const {
   getNthElement,
   arrayToCSVString,
-  csvStringToArray,
-  addToArray,
   addToArray2,
-  removeNthElement,
-  numbersToStrings,
-  uppercaseWordsInArray,
-  reverseWordsInArray,
-  onlyEven,
   removeNthElement2,
   elementsStartingWithAVowel,
-  removeSpaces,
-  sumNumbers,
-  sortByLastLetter,
 } = require('./lib/arrays');
 
 const app = express();
@@ -78,18 +68,15 @@ app.post('/numbers/multiply', (req, res) => {
   if (a === undefined || b === undefined) {
     res.status(400).json({ error: 'Parameters "a" and "b" are required.' });
   }
-  // if (typeof multiply(a, b) !== 'number') {
-  //   // if (Boolean(a.match(/^[A-Za-z]/)) === true || Boolean(b.match(/^[A-Za-z]/)) === true) {
-  //   res.status(400).json({ error: 'Parameters "a" and "b" must be valid numbers.' });
-  // }
-  else {
+  if (Number.isNaN(parseInt(a, 0)) || Number.isNaN(parseInt(b, 0))) {
+    res.status(400).json({ error: 'Parameters "a" and "b" must be valid numbers.' });
+  } else {
     res.status(200).json({ result: multiply(a, b) });
   }
 });
 
 app.post('/numbers/divide', (req, res) => {
-  const { a } = req.body;
-  const { b } = req.body;
+  const { a, b } = req.body;
   if (a === 0) {
     res.status(200).json({ result: 0 });
   }
@@ -98,6 +85,9 @@ app.post('/numbers/divide', (req, res) => {
   }
   if (a === undefined || b === undefined) {
     res.status(400).json({ error: 'Parameters "a" and "b" are required.' });
+  }
+  if (Number.isNaN(parseInt(a, 0)) || Number.isNaN(parseInt(b, 0))) {
+    res.status(400).json({ error: 'Parameters "a" and "b" must be valid numbers.' });
   } else {
     res.status(200).json({ result: divide(a, b) });
   }
@@ -114,6 +104,9 @@ app.post('/numbers/remainder', (req, res) => {
   }
   if (b === 0) {
     res.status(400).json({ error: 'Unable to divide by 0.' });
+  }
+  if (Number.isNaN(parseInt(a, 0)) || Number.isNaN(parseInt(b, 0))) {
+    res.status(400).json({ error: 'Parameters must be valid numbers.' });
   } else {
     res.status(200).json({ result: remainder(a, b) });
   }
@@ -160,8 +153,21 @@ app.post('/arrays/to-string', (req, res) => {
 });
 
 app.post('/arrays/append', (req, res) => {
-  console.log(req.body.array);
-  res.status(200).json({ result: addToArray(req.body.value, req.body.array) });
+  res.status(200).json({ result: addToArray2(req.body.value, req.body.array) });
+});
+
+app.post('/arrays/starts-with-vowel', (req, res) => {
+  res.status(200).json({ result: elementsStartingWithAVowel(req.body.array) });
+});
+
+app.post('/arrays/remove-element', (req, res) => {
+  if (req.query.index) {
+    res
+      .status(200)
+      .json({ result: removeNthElement2(parseInt(req.query.index, 0), req.body.array) });
+  } else {
+    res.status(200).json({ result: removeNthElement2(0, req.body.array) });
+  }
 });
 
 module.exports = app;
